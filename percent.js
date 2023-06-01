@@ -3,7 +3,8 @@ let x,
   ar = [];
 let operationFlag = false,
   valueFlag = false,
-  answeredFlag = false;
+  answeredFlag = false,
+  percentflag = false;
 let operator = "",
   expression = "";
 function showValue(x) {
@@ -13,10 +14,21 @@ function showValue(x) {
     expression = "";
     answeredFlag = false;
   }
-  expression += x;
+  if( percentflag)
+  {
+    expression = x; //means change %key number to new number that's been entered
+    valueFlag = false;
+    ar = [];
+    topPosition =-1;
+    percentflag = false;
+  }
+  else{
+    expression += x;
+  }
   if (valueFlag) {
     ar[topPosition] = ar[topPosition] * 10 + x;
-  } else {
+  } 
+  else {
     ++topPosition;
     ar[topPosition] = x;
     valueFlag = true;
@@ -28,30 +40,32 @@ function showValue(x) {
 function showOperation(operator) {
   console.log(topPosition);
   answeredFlag = false;
-  expression += operator;
+  
   //if(valueFlag || operationFlag ){
-  if (operator === "%") {
-    if (ar.length >= 3) {
-      ar = percentKeyCalcultion();
-    } else if (ar.length == 1) {
-      ar = percentKeyCalcultion();
-    }
+  if (!operationFlag && operator === "%") {
+    ar = percentKeyCalcultion();
+    expression = ""+ ar[0];
     topPosition = 0;
-  } else {
+    percentflag = true;
+  } 
+  else {
+    percentflag = false;
     if (ar.length >= 3) {
       ar = performCalculation(ar[0], ar[1], ar[2]);
       topPosition = 0;
+      expression = ""+ar[0];
     }
     if (operationFlag) {
       ar[topPosition] = operator;
-      expression = expression.slice(0, expression.length - 2) + operator;
+      expression = expression.slice(0, expression.length - 1) + operator;
     } else {
       ++topPosition;
       ar[topPosition] = operator;
+      expression += operator;
     }
+    operationFlag = true;
+    valueFlag = false;
   }
-  operationFlag = true;
-  valueFlag = false;
   document.getElementById("showhere").value = expression;
   console.log(ar[topPosition]);
   console.log(ar);

@@ -6,8 +6,7 @@ let operationFlag = false,
   valueFlag = false,
   pointFlag = false,
   answeredFlag = false;
-let operator = "",
-  expression = "";
+let expression = "";
 function showValue(x) {
   if (answeredFlag) {
     ar = [];
@@ -28,7 +27,7 @@ function showValue(x) {
     pointFlag = true;
   } else {
     if (pointFlag) {
-      ar[topPosition] = ar[topPosition] + x / 10 ** power;
+      ar[topPosition] = ar[topPosition] + x/(10 ** power);
       console.log(x / 10 ** power, ar[topPosition]);
       power++;
     } else if (valueFlag) {
@@ -45,14 +44,15 @@ function showValue(x) {
 }
 function showOperation(operator) {
   answeredFlag = false;
-  power = 0;
-  expression += operator;
+  power = 1;
+  
   if (operationFlag) {
     ar[topPosition] = operator;
-    expression = expression.slice(0, expression.length - 2) + operator;
+    expression = expression.slice(0, expression.length - 1) + operator;
   } else {
     ++topPosition;
     ar[topPosition] = operator;
+    expression += operator;
   }
   pointFlag = false;
   operationFlag = true;
@@ -66,6 +66,7 @@ function computeAnswer() {
     ar = performCalculation();
   }
   topPosition = 0;
+  console.log(ar[0]);
   ar[0] = parseFloat(ar[0].toFixed(2));
   document.getElementById("showhere").value = ar[0];
   console.log(ar);
@@ -73,19 +74,36 @@ function computeAnswer() {
   answeredFlag = true;
 }
 function performCalculation() {
-  let value = ar[0],
-    i;
-  for (i = 1; i < ar.length; i += 2) {
-    operator = ar[i];
-    value2 = ar[i + 1];
+  let i, new_ar = [], 
+  new_topPosition = 0; //local position pointer for array new_ar
+  /* why we need new_ar to perform * and / divide operations first 
+  then performing + & - in 2nd turn;*/
+  new_ar[new_topPosition] = ar[0];
+  for (i = 1; i < ar.length; i += 1) {
+    //console.log( ar[i],ar[i] === '*' )
+    if (ar[i] === '*') {
+      new_ar[new_topPosition] = new_ar[new_topPosition] * ar[i+1];
+      //console.log(new_ar[new_topPosition] );
+    } 
+    else if (ar[i] === '/') {
+      new_ar[new_topPosition] = new_ar[new_topPosition] * ar[i+1];
+      //console.log(new_ar[new_topPosition] );
+    }
+    else
+    {
+      new_topPosition++;
+      new_ar[new_topPosition] = ar[i];
+    }
+  }
+  let operator = "";
+  value = new_ar[0];
+  for (i = 1; i < new_ar.length; i += 2) {
+    operator = new_ar[i];
     if (operator === "+") {
-      value = value + value2;
-    } else if (operator === "-") {
-      value = value - value2;
-    } else if (operator === "*") {
-      value = value * value2;
-    } else if (operator === "/") {
-      value = value / value2;
+      value = value + new_ar[i+1] ;
+    } 
+    else if (operator === "-") {
+      value = value - new_ar[i+1];
     }
   }
   return [value];

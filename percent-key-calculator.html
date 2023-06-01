@@ -6,62 +6,84 @@
     <title>Document</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Reggae+One&display=swap" rel="stylesheet">
-    <style>
-        body{
-            background: url(mobile-6th.jpg);
-        }
-        table{border: 2px solid #1af00a; 
-        width : 40%;
-        height : 40%;}
-        tr{border: 2px solid #1af00a;}
-        td{border: 2px solid #1af00a;}
-        button{ width: 60px;
-                height: 50px;
-                background-color:red;
-                color:gold;
-                opacity : 0.6;
-                font-size: larger;
-                font-weight: bolder;
-                 }
-        .btn:hover {
-                    
-                    opacity :1;
-                    cursor : pointer;
-                    ;
-                }
-        .block{
-            position: absolute;
-            color: goldenrod;
-            padding: 6%;
-            
-        }
-        h1{
-            font-family: 'Reggae One', cursive;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            background-color: #538fbe;
-            padding: 10px 10px;
-            font-size: 20px;
-            border: 1px solid #2d6898;
-            background: rgb(10,241,238);
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-        }
-        @media only screen and (min-width: 768px) {
-            body{
-                background: url(3rd-image.jpg);
+<style>
+    body{
+        background-image: url(mobile-7th.jpg);
+    }
+    table{border: 2px solid black ; 
+    width : 40%;
+    height : 40%;
+border-radius: 20px;
+background-color: #333;}
+    button {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity : 0.8;
+    }
+    .clear {
+    background-color: #ff0000;
+    color: #fff;
+    width : 70px;
+  }
+  .operator {
+    background-color: #ff9900;
+    color: #fff;
+  }
+  .equal {
+    background-color: #33cc33;
+    color: #fff;
+  }
+  
+    .btn:hover {
+                
+                opacity :1;
+                cursor : pointer;
+                ;
             }
-            .block{
-                top: 20%;
-                left: 40%
-            }  
+    .block{
+        color: goldenrod;
+        padding: 6%;
+        position: absolute;
+    }
+    h1{
+        font-family: 'Reggae One', cursive;
+    }
+    .button {
+        display: inline-block;
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        background-color: #538fbe;
+        padding: 10px 10px;
+        font-size: 20px;
+        border: 1px solid #2d6898;
+        background: rgb(10,241,238);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+    .display {
+    height: 40px;
+    margin: 10px;
+    padding: 5px;
+    font-size: 20px;
+  }
+    @media only screen and (min-width: 768px) {
+        body{
+            background: url(3rd-image.jpg);
+            background-size: cover;
+        }
+        .block{
+            top: 5%;
+            left: 35%
         }  
-    </style>
+    }
+</style>
 </head>
 <body>
     <a href=index.html class="button">Back</a>
@@ -71,11 +93,11 @@
         <table cellpadding="10%">
             <h1 id = "tr"><u>SIMPLE CALCULATOR</u></h1>
             <tr>
-                <td style="background-color: black; " colspan="3">
-                    <input type="text" id = "showhere" name="fname" value=0  size="25"/>
+                <td  colspan="3">
+                    <input class = "display" type="text" id = "showhere" name="fname" value=0  size="25"/>
                 </td>
                 <td>
-                    <button class="btn" onclick="clearAll()" >AC</button>
+                    <button class="btn clear" onclick="clearAll()" >AC</button>
                 </td>
             </tr>
             <tr>
@@ -89,7 +111,7 @@
                     <button class="btn" onclick="showValue(3)" >3</button>
                 </td>
                 <td>
-                    <button class="btn" onclick="showOperation('+')" >+</button>
+                    <button class="btn operator" onclick="showOperation('+')" >+</button>
                 </td>
             </tr>
             <tr>
@@ -103,7 +125,7 @@
                     <button class="btn" onclick="showValue(6)" >6</button>
                 </td>
                 <td>
-                    <button class="btn" onclick="showOperation('-')" >-</button>
+                    <button class="btn operator" onclick="showOperation('-')" >-</button>
                 </td> 
             </tr>
             <tr>
@@ -117,7 +139,7 @@
                     <button class="btn" onclick="showValue(9)" >9</button>
                 </td>
                 <td>
-                    <button class="btn" onclick="showOperation('*')" *">*</button>
+                    <button class="btn operator" onclick="showOperation('*')" *">*</button>
                 </td>
             </tr>
             <tr>
@@ -125,13 +147,13 @@
                     <button class="btn" onclick="showValue(0)" >0</button>
                 </td>
                 <td>
-                    <button  class="btn" onclick="showOperation('%')" >%</button>
+                    <button  class="btn operator" onclick="showOperation('%')" >%</button>
                 </td>
                 <td>
-                    <button class="btn" onclick="showOperation('/')" >/</button>
+                    <button class="btn operator" onclick="showOperation('/')" >/</button>
                 </td>
                 <td>
-                    <button  class="btn" onclick="computeAnswer()" >=</button>
+                    <button  class="btn equal" onclick="computeAnswer()" >=</button>
                 </td>
             </tr>
         </table>
